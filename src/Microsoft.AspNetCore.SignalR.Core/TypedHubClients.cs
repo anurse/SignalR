@@ -42,6 +42,7 @@ namespace Microsoft.AspNetCore.SignalR
             return TypedClientBuilder<T>.Build(_hubClients.MultipleClients(connectionIds));
         }
 
+
         public T OthersInGroup(string groupName)
         {
             return TypedClientBuilder<T>.Build(_hubClients.OthersInGroup(groupName));
@@ -50,6 +51,10 @@ namespace Microsoft.AspNetCore.SignalR
         public T User(string userId)
         {
             return TypedClientBuilder<T>.Build(_hubClients.User(userId));
+        }
+        public T Users(IReadOnlyList<string> userIds)
+        {
+            return TypedClientBuilder<T>.Build(_hubClients.Users(userIds));
         }
     }
 }
