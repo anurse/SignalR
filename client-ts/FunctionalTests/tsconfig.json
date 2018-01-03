@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es2015",
+    "module": "es2015",
+    "outDir": "./obj/js",
+    "baseUrl": ".",
+    "paths": {
+      "@aspnet/signalr": [ "../signalr/dist/esm/index" ],
+      "@aspnet/signalr-protocol-msgpack": [ "../signalr-protocol-msgpack/dist/esm/index" ]
+    }
+  },
+  "include": [
+    "./**/*",
+    "../typings/**/*",
+    "../signalr/dist/esm/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "wwwroot",
+    "js"
+  ]
+}
