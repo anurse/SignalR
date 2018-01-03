@@ -956,6 +956,7 @@ namespace Microsoft.AspNetCore.SignalR.Tests
                 var secondAndThirdClients = new HashSet<string> {secondClient.Connection.ConnectionId,
                     thirdClient.Connection.ConnectionId };
 
+
                 await firstClient.SendInvocationAsync("SendToMultipleClients", "Second and Third", secondAndThirdClients).OrTimeout();
 
                 var secondClientResult = await secondClient.ReadAsync().OrTimeout();
@@ -1001,7 +1002,7 @@ namespace Microsoft.AspNetCore.SignalR.Tests
                 var secondAndThirdClients = new HashSet<string> {secondClient.Connection.User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
                     thirdClient.Connection.User.FindFirst(ClaimTypes.NameIdentifier)?.Value };
 
-                await firstClient.SendInvocationAsync("SendToMultipleUsers", secondAndThirdClients, "Second and Third" ).OrTimeout();
+                await firstClient.SendInvocationAsync("SendToMultipleUsers", secondAndThirdClients, "Second and Third").OrTimeout();
 
                 var secondClientResult = await secondClient.ReadAsync().OrTimeout();
                 var invocation = Assert.IsType<InvocationMessage>(secondClientResult);
