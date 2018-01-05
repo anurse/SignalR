@@ -604,13 +604,18 @@ namespace Microsoft.AspNetCore.SignalR.Redis
         public override Task InvokeUsersAsync(IReadOnlyList<string> userIds, string methodName, object[] args)
         {
             var message = new RedisInvocationMessage(methodName, args);
-            var publishTasks = new List<Task>(userIds.Count());
-            foreach (var userId in userIds)
+            if (userIds.Count > 0)
             {
-                publishTasks.Add(PublishAsync(_channelNamePrefix + ".user." + userId, message));
+                var publishTasks = new List<Task>(userIds.Count);
+                foreach (var userId in userIds)
+                {
+                    publishTasks.Add(PublishAsync(_channelNamePrefix + ".user." + userId, message));
+                }
+
+                return Task.WhenAll(publishTasks);
             }
 
-            return Task.WhenAll(publishTasks);
+            return Task.CompletedTask;
         }
 
         private class LoggerTextWriter : TextWriter
