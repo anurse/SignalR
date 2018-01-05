@@ -603,9 +603,9 @@ namespace Microsoft.AspNetCore.SignalR.Redis
 
         public override Task InvokeUsersAsync(IReadOnlyList<string> userIds, string methodName, object[] args)
         {
-            var message = new RedisInvocationMessage(methodName, args);
             if (userIds.Count > 0)
             {
+                var message = new RedisInvocationMessage(methodName, args);
                 var publishTasks = new List<Task>(userIds.Count);
                 foreach (var userId in userIds)
                 {
