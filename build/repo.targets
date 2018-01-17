@@ -11,4 +11,30 @@
     <Message Text="Running TypeScript client Node tests" Importance="high" />
     <Exec Command="npm test" WorkingDirectory="$(RepositoryRoot)client-ts" IgnoreStandardErrorWarningFormat="true" />
   </Target>
+
+  <Target Name="PublishNPMPackages" AfterTargets="Pack">
+    <ItemGroup>
+      <NPMPackage Include="$(RepositoryRoot)client-ts/signalr">
+        <Name>aspnet-signalr</Name>
+      </NPMPackage>
+      <NPMPackage Include="$(RepositoryRoot)client-ts/signalr-protocol-msgpack">
+        <Name>aspnet-signalr-protocol-msgpack</Name>
+      </NPMPackage>
+    </ItemGroup>
+
+    <ItemGroup>
+      <NPMPackage Update="%(NPMPackage)">
+        <PackageJson>$([System.IO.Path]::Combine(%(NPMPackage.FullPath), 'package.json'))</PackageJson>
+        <OutputTar>$([System.IO.Path]::Combine(%(NPMPackage.FullPath), '%(NPMPackage.Name)-$(PackageVersion).tgz'))</OutputTar>
+      </NPMPackage>
+    </ItemGroup>
+
+    <Copy SourceFiles="%(NPMPackage.PackageJson)" DestinationFiles="%(NPMPackage.PackageJson).bak" />
+    <Exec Command="npm --no-git-tag-version --allow-same-version version $(PackageVersion)" WorkingDirectory="%(NPMPackage.FullPath)" />
+    <Exec Command="npm pack" WorkingDirectory="%(NPMPackage.FullPath)" />
+    <Move SourceFiles="%(NPMPackage.OutputTar)" DestinationFolder="$(PackageOutputPath)"/>
+    <Message Text="Version: $(PackageVersion)" Importance="high" />
+    <Copy SourceFiles="%(NPMPackage.PackageJson).bak" DestinationFiles="%(NPMPackage.PackageJson)" />
+    <Delete Files="%(NPMPackage.PackageJson).bak" />
+  </Target>
 </Project>

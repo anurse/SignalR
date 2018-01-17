@@ -36,7 +36,7 @@ describe("Base64EncodedHubProtocol", () => {
         ["1.0:A;", new Error("Invalid length: '1.0'")],
         ["2:A;", new Error("Invalid message size.")],
         ["2:ABC;", new Error("Invalid message size.")],
-    ] as [[string, Error]]).forEach(([payload, expected_error]) => {
+    ] as [string, Error][]).forEach(([payload, expected_error]) => {
         it(`should fail to parse '${payload}'`, () => {
             expect(() => new Base64EncodedHubProtocol(new FakeHubProtocol()).parseMessages(payload)).toThrow(expected_error);
         });
@@ -59,7 +59,7 @@ describe("Base64EncodedHubProtocol", () => {
 
     ([
         [{}, "2:{};"],
-    ] as [[any, string]]).forEach(([message, payload]) => {
+    ] as [any, string][]).forEach(([message, payload]) => {
         it(`should be able to write '${JSON.stringify(message)}'`, () => {
 
             let globalAny: any = global;

@@ -8,7 +8,7 @@ import { TransportType, TransferMode } from "./Transports"
 import { Subject, Observable } from "./Observable"
 import { IHubProtocol, ProtocolType, MessageType, HubMessage, CompletionMessage, ResultMessage, InvocationMessage, StreamInvocationMessage, NegotiationMessage, CancelInvocation } from "./IHubProtocol";
 import { JsonHubProtocol, JSON_HUB_PROTOCOL_NAME } from "./JsonHubProtocol";
-import { TextMessageFormat } from "./Formatters"
+import { TextMessageFormat } from "./TextMessageFormat"
 import { Base64EncodedHubProtocol } from "./Base64EncodedHubProtocol"
 import { ILogger, LogLevel } from "./ILogger"
 import { ConsoleLogger, NullLogger, LoggerFactory } from "./Loggers"

@@ -6,7 +6,7 @@ import { HubConnection } from "../src/HubConnection"
 import { DataReceived, ConnectionClosed } from "../src/Common"
 import { TransportType, ITransport, TransferMode } from "../src/Transports"
 import { Observer } from "../src/Observable"
-import { TextMessageFormat } from "../src/Formatters"
+import { TextMessageFormat } from "../src/TextMessageFormat"
 import { ILogger, LogLevel } from "../src/ILogger"
 import { MessageType } from "../src/IHubProtocol"
 
@@ -539,7 +539,7 @@ class TestConnection implements IConnection {
 
     onreceive: DataReceived;
     onclose: ConnectionClosed;
-    sentData: [any];
+    sentData: any[];
     lastInvocationId: string;
 };
 
